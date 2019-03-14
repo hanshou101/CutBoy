@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>差异比较</title>
+    <link rel="stylesheet" href="reset.import.css">
+    <style>
+        img{
+            width:750px;
+        }
+        .screenorigin{
+            z-index:0;
+            position: absolute;
+            top:0;
+            left:0;
+            right:0;
+        }
+        .screenshot{
+            z-index:10;
+            /*mix-blend-mode: difference;*/
+            -webkit-filter: invert(100%) opacity(50%);
+            filter: invert(100%) opacity(50%);
+        }
+    </style>
+</head>
+<body>
+    <img class="screenorigin" src="./img/page.jpg" alt="">
+    <img class="screenshot" src="./img/screen.jpg" alt="">
+</body>
+</html>
