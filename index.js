@@ -29,6 +29,12 @@
                 self._events();
             };
         }
+
+        if(self.debug){
+            html2canvas(document.body).then(function(canvas){
+                self.downlaodCanvas(canvas,'screen');
+            });
+        }
     }
 
     /**
@@ -60,7 +66,6 @@
                     console.log('Move up '+moveUp+' pixel');
                     self._hide();
                 });
-
             }
         });
     }
@@ -137,6 +142,19 @@
     }
 
     /**
+     * 下载canvas画布
+     */
+    CutBoy.prototype.downlaodCanvas = function($canvas,name){
+        //下载
+        var aLink = document.createElement('a');
+        aLink.download = name+'.jpg';
+        var blob = this.canvasToBlob($canvas,'image/jpg');
+        aLink.href = URL.createObjectURL(blob);
+        var evt = new MouseEvent('click');//生出鼠标事件
+        aLink.dispatchEvent(evt);//触发鼠标事件
+    }
+
+    /**
      * 匹配
      */
     CutBoy.prototype._matching = function($temp){
@@ -172,13 +190,7 @@
             cv.rectangle(this.pageMat, position, point, color, 2, cv.LINE_8, 0);
             cv.imshow($show, this.pageMat);
 
-            //下载
-            var aLink = document.createElement('a');
-            aLink.download = 'matching.jpg';
-            var blob = this.canvasToBlob($show,'image/jpg');
-            aLink.href = URL.createObjectURL(blob);
-            var evt = new MouseEvent('click');//生出鼠标事件
-            aLink.dispatchEvent(evt);//触发鼠标事件
+            this.downlaodCanvas($show,'matching');
         }
 
         dst.delete();
