@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试1</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover ">
+    <link rel="stylesheet" href="./test0.css"/>
+    <script>
+        (function (win, doc) {
+            var docEl = document.documentElement;
+            function setFont() {
+                var cliWidth = docEl.clientWidth;
+                if(cliWidth>750){
+                    cliWidth = 750;
+                }
+                docEl.style.fontSize = 100 * (cliWidth / 750) + 'px';
+            }
+            win.addEventListener('resize',setFont,false);
+            setFont();
+        })(window, document);
+    </script>
+</head>
+<body>
+    <div class="main-page">
+        <div class="mp-head"></div>
+        <div class="mp-title"></div>
+    </div>
+
+    <script src="../lib/opencv.wasm.js" type="text/javascript"></script>
+    <script src="../node_modules/html2canvas/dist/html2canvas.js" type="text/javascript"></script>
+    <script src="../index.js" type="text/javascript"></script>
+    <script>
+        window.onload = function(){
+            new CutBoy({
+                pageImageSrc:'../img/page.jpg'
+            });
+        }
+    </script>
+</body>
+</html>

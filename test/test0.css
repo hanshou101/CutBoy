@@ -1,0 +1,25 @@
+@import url('reset.import.css');
+
+.main-page{
+    width:100%;
+    background-color:#fffcf1;
+    position: relative;
+}
+
+/* 头部 */
+.main-page .mp-head{
+    width:7.5rem;
+    height:4.22rem;
+    background-image:url(../img/page-head.png);
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+}
+
+.main-page .mp-title{
+    width: 6.44rem;
+    height:1.98rem;
+    background-image:url(../img/page-title.png);
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    margin:auto;
+}
