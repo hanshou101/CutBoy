@@ -36,8 +36,7 @@
 
         document.addEventListener('mousemove',function(e){
             if(!self.$element){
-                self.$element = e.target;
-                self._cover();
+                self._cover(e.target);
             }
         });
 
@@ -56,12 +55,12 @@
     /**
      * 覆盖显示某个元素
      */
-    CutBoy.prototype._cover = function(){
+    CutBoy.prototype._cover = function($target){
         var self = this;
-
-        var rect = self.$element.getBoundingClientRect();
+        var rect = $target.getBoundingClientRect();
         var bodyRect = document.body.getBoundingClientRect();
         if(rect.width<bodyRect.width||rect.height<bodyRect.height){//只能覆盖显示子元素
+            self.$element = $target;
             var $cover = document.querySelector('#cut-boy-cover');
             if(!$cover){
                 $cover = document.createElement('div');
