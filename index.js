@@ -43,10 +43,15 @@
         document.addEventListener('click',function(e){
             if(self.$element){
                 console.log('--- check element position ---');
-                console.log(self.$element);
-                console.log(self.$element.getBoundingClientRect());
+                var rect = self.$element.getBoundingClientRect();
                 html2canvas(self.$element).then(function(canvas){
-                    console.log(self._matching(canvas));
+                    var position = self._matching(canvas);
+
+                    var moveLeft = rect.left - position.x;
+                    var moveUp = rect.top - position.y;
+
+                    console.log('Move '+moveLeft+' pixel to the left');
+                    console.log('Move up '+moveUp+' pixel');
                 });
             }
         });
