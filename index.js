@@ -123,7 +123,7 @@
 
             var $container = document.querySelector('#cut-boy-dialog>div');
             var img1 = new Image();
-            img1.src = temp.toDataURL();
+            img1.src = canvas.toDataURL();
             $container.appendChild(img1);
             $container.appendChild(self.pageImage);
 
