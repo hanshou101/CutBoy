@@ -91,18 +91,18 @@
     CutBoy.prototype._showMatchingResult = function(){
         var self = this;
 
+        self.$dialog.innerHTML = '<div></div>';//初始化
+
+        var $container = document.querySelector('#cut-boy-dialog>div');
+        var img1 = new Image();
         if(self.$result){
-            self.$dialog.innerHTML = '<div></div>';//初始化
-
-            var $container = document.querySelector('#cut-boy-dialog>div');
-            var img1 = new Image();
             img1.src = self.$result.toDataURL();
-            $container.appendChild(img1);
-            var img2 = new Image();
-            $container.appendChild(img2);
-
-            self.$dialog.style.display = 'block';
         }
+        $container.appendChild(img1);
+        var img2 = new Image();
+        $container.appendChild(img2);
+
+        self.$dialog.style.display = 'block';
     }
 
     /**
