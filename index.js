@@ -22,7 +22,7 @@
     function CutBoy(params){
         var self = this;
 
-        self.debug = params.debug?true:false;
+        self.debug = params.debug?params.debug:true;//默认开启debug模式
         self.pageImage = new Image();
         self.pageImage.src = params.pageImageSrc;
         self.pageImage.onload = function(){
