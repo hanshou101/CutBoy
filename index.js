@@ -116,12 +116,14 @@
         self.$debug.style.display = 'none';
 
         html2canvas(document.body).then(function(canvas){
+            canvas = self._resetCanvas(canvas);
+
             self.$dialog.style.display = 'block';
             self.$debug.style.display = 'block';
 
             var $container = document.querySelector('#cut-boy-dialog>div');
             var img1 = new Image();
-            img1.src = canvas.toDataURL();
+            img1.src = temp.toDataURL();
             $container.appendChild(img1);
             $container.appendChild(self.pageImage);
 
@@ -149,6 +151,8 @@
                 console.log(self.$element);
                 console.log(rect);
                 html2canvas(self.$element).then(function(canvas){
+                    //除以设备像素比
+                    canvas = self._resetCanvas(canvas);
                     var position = self._matching(canvas);
                     console.log(position);
 
@@ -161,6 +165,20 @@
                 });
             }
         });
+    }
+
+    /**
+     * 截屏的canvas画布去掉设备像素比的影响
+     * @private
+     */
+    CutBoy.prototype._resetCanvas = function (canvas) {
+        var temp = document.createElement('canvas');
+        temp.width = canvas.width/window.devicePixelRatio;
+        temp.height = canvas.height/window.devicePixelRatio;
+        var ctx = temp.getContext('2d');
+        ctx.drawImage(canvas,0,0,canvas.width,canvas.height,0,0,temp.width,temp.height);
+
+        return temp;
     }
 
     /**
