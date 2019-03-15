@@ -237,15 +237,66 @@
             self.$result.height = self.pageImage.height;
             var color = new cv.Scalar(255, 0, 0, 255);
             var point = new cv.Point(position.x + templ.cols, position.y + templ.rows);
-            cv.rectangle(src, position, point, color, 2, cv.LINE_8, 0);
+            cv.rectangle(src, position, point, color, 1, cv.LINE_8, 0);
             cv.imshow(self.$result, src);
+
+            //self.downlaodCanvas(self.$result,'matching');
         }
 
+        //释放内存
+        src.delete();
         dst.delete();
         mask.delete();
+        templ.delete();
 
         return position;
     }
+
+    /**
+     * canvas转换为blob
+     */
+    CutBoy.prototype.canvasToBlob = function(canvas,type){
+        var dataurl = canvas.toDataURL(type);
+        return this.dataURLtoBlob(dataurl);
+    }
+
+    /**
+     * dataurl转换为blob
+     */
+    CutBoy.prototype.dataURLtoBlob = function(dataurl) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1];
+        var u8arr = this.dataURLtoUint8(dataurl);
+        return new Blob([u8arr], {type:mime});
+    }
+
+    /**
+     * dataurl转换为uint8
+     */
+    CutBoy.prototype.dataURLtoUint8 = function (dataurl) {
+        var arr = dataurl.split(','),
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return u8arr;
+    }
+
+    /**
+     * 下载canvas画布
+     */
+    CutBoy.prototype.downlaodCanvas = function($canvas,name){
+        //下载
+        var aLink = document.createElement('a');
+        aLink.download = name+'.png';
+        var blob = this.canvasToBlob($canvas,'image/png');
+        aLink.href = URL.createObjectURL(blob);
+        var evt = new MouseEvent('click');//生出鼠标事件
+        aLink.dispatchEvent(evt);//触发鼠标事件
+    }
+
 
     return CutBoy;
 }));
